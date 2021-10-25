@@ -157,3 +157,280 @@ Migrating to DeviseInvitableAddToUsers (20211025205922)
   [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
   [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3937923572522455425)[0m
   [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/v1/users" for ::1 at 2021-10-26 00:51:02 +0300
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}
+  [1m[36mInvitation Load (5.2ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (6.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+Completed 422 Unprocessable Entity in 470ms (Views: 0.2ms | ActiveRecord: 17.8ms | Allocations: 29613)
+
+
+Started POST "/api/v1/users" for ::1 at 2021-10-26 00:51:34 +0300
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]", "name"=>"John Doe"}}
+  [1m[36mInvitation Load (0.2ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Load (5.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "iZoz6PX1rdLYFNznxkYx"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:49:in `block in generate_authentication_token'
+  [1m[36mUser Create (8.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test@test.com"], ["encrypted_password", "$2a$12$cis3mZDyalB8ckpTX4.57eVb8ibd7hMVrngyWXcjULtKOW.yJ4XyS"], ["authentication_token", "iZoz6PX1rdLYFNznxkYx"], ["created_at", "2021-10-25 21:51:35.066501"], ["updated_at", "2021-10-25 21:51:35.066501"], ["name", "John Doe"]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "test@test.com"], ["id", "7da57a3b-a229-4f17-a979-a571b2f6009e"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:51:35.084359"], ["last_sign_in_at", "2021-10-25 21:51:35.084359"], ["current_sign_in_ip", "::1"], ["last_sign_in_ip", "::1"], ["updated_at", "2021-10-25 21:51:35.084584"], ["id", "7da57a3b-a229-4f17-a979-a571b2f6009e"]]
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+NameError
+undefined local variable or method `authentication_tokens' for #<User:0x00007fb9b0bae750>
+Did you mean?  authentication_token
+               authentication_token=
+               authentication_token?
+               authentication_token_was
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4.1/lib/active_model/attribute_methods.rb:469:in `method_missing'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/models/user.rb:21:in `current_auth'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:30:in `create'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/migration.rb:601:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/configuration.rb:249:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/request.rb:77:in `block in handle_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/request.rb:76:in `handle_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/server.rb:447:in `process_client'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Completed 500 Internal Server Error in 327ms (Views: 0.1ms | ActiveRecord: 19.8ms | Allocations: 13273)
+
+
+Started POST "/api/v1/users" for ::1 at 2021-10-26 00:52:31 +0300
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]", "name"=>"John Doe"}}
+  [1m[36mInvitation Load (0.4ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+Completed 422 Unprocessable Entity in 361ms (Views: 0.2ms | ActiveRecord: 8.0ms | Allocations: 16486)
+
+
+Started POST "/api/v1/users" for ::1 at 2021-10-26 00:52:41 +0300
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"test1@test.com", "password"=>"[FILTERED]", "name"=>"John Doe"}}
+  [1m[36mInvitation Load (0.2ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "jH9zzFpBssT7R6TiXHC9"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:41:in `block in generate_authentication_token'
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@test.com"], ["encrypted_password", "$2a$12$A9qgc3wO5Acqaq/uA2AHz.D9EQJBB7KyiV7VGrSjifNLsn3MqM1yy"], ["authentication_token", "jH9zzFpBssT7R6TiXHC9"], ["created_at", "2021-10-25 21:52:41.962452"], ["updated_at", "2021-10-25 21:52:41.962452"], ["name", "John Doe"]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "test1@test.com"], ["id", "e5d3037c-a6f0-460e-bed3-dfd65ea0d783"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:52:41.968184"], ["last_sign_in_at", "2021-10-25 21:52:41.968184"], ["current_sign_in_ip", "::1"], ["last_sign_in_ip", "::1"], ["updated_at", "2021-10-25 21:52:41.968376"], ["id", "e5d3037c-a6f0-460e-bed3-dfd65ea0d783"]]
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+NoMethodError
+undefined method `current_auth' for #<User:0x00007fb9d15943f8>
+Did you mean?  current_sign_in_at
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4.1/lib/active_model/attribute_methods.rb:469:in `method_missing'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:30:in `create'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/migration.rb:601:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/configuration.rb:249:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/request.rb:77:in `block in handle_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/request.rb:76:in `handle_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/server.rb:447:in `process_client'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/puma-5.5.2/lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Completed 500 Internal Server Error in 284ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 11708)
+
+
+Started POST "/api/v1/users" for ::1 at 2021-10-26 00:53:15 +0300
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"test1@test.com", "password"=>"[FILTERED]", "name"=>"John Doe"}}
+  [1m[36mInvitation Load (0.5ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+Completed 422 Unprocessable Entity in 300ms (Views: 0.1ms | ActiveRecord: 6.6ms | Allocations: 16408)
+
+
+Started POST "/api/v1/users" for ::1 at 2021-10-26 00:53:26 +0300
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"test2@test.com", "password"=>"[FILTERED]", "name"=>"John Doe"}}
+  [1m[36mInvitation Load (0.4ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "test2@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test2@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test2@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "rJ1qjyeHCUH59LqD6goz"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:41:in `block in generate_authentication_token'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test2@test.com"], ["encrypted_password", "$2a$12$vyQ9dqJ.xrHzeTN3I6AzwegG.6/hYO2dbbREl3nNiNlZrc0vjTxJe"], ["authentication_token", "rJ1qjyeHCUH59LqD6goz"], ["created_at", "2021-10-25 21:53:26.326403"], ["updated_at", "2021-10-25 21:53:26.326403"], ["name", "John Doe"]]
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:26:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "test2@test.com"], ["id", "27db50fd-ee27-4af6-ad35-a39da6d51f4f"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:53:26.330892"], ["last_sign_in_at", "2021-10-25 21:53:26.330892"], ["current_sign_in_ip", "::1"], ["last_sign_in_ip", "::1"], ["updated_at", "2021-10-25 21:53:26.331071"], ["id", "27db50fd-ee27-4af6-ad35-a39da6d51f4f"]]
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:29:in `create'
+Completed 200 OK in 261ms (Views: 0.3ms | ActiveRecord: 3.1ms | Allocations: 7426)
+
+

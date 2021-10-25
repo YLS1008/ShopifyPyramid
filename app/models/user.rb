@@ -17,14 +17,6 @@ class User < ApplicationRecord
     role == "super_admin"
   end
 
-  def current_auth
-    authentication_tokens.valid.first
-  end
-
-  def create_auth_token
-    AuthenticationToken.create(user_id: id, token: generate_authentication_token, expires_at: 5.hours.from_now, valid: true)
-  end
-
   def as_json(options = {})
     new_options = options.merge(only: [:email, :name, :current_sign_in_at])
 

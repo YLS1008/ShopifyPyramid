@@ -27,7 +27,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if user.valid?
       sign_in(user)
-      render json: { user: user, auth_token: user.current_auth.token }
+      render json: { user: user, auth_token: user.authentication_token }
     else
       render json: { error: user.errors.full_messages.to_sentence }, status: 422
     end
