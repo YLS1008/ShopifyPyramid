@@ -59,8 +59,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       post('/api/v1/invite', params: { email: 'test@test.com' }.to_json, headers: { 'Accept': 'applicaion/json',  'Content-Type': 'application/json',
                                         'X-Auth-Email': user.email, 'X-Auth-Token': user.authentication_token })
 
-      byebug
-
+      expect(user.reload.invitations.first.invited_email).to eq('test@test.com')
     end
   end
 end
