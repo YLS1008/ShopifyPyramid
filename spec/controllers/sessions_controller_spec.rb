@@ -4,10 +4,6 @@ def api_call(params)
   post '/api/v1/login', params: params
 end
 
-def sign_out(headers)
-  delete '/api/v1/logout', headers: { 'Accept': 'applicaion/json', 'Content-Type': 'application/json' }.merge(headers)
-end
-
 RSpec.describe Api::V1::SessionsController, type: :request do
   let(:email) { 'not_a_mail@mail.com' }
   let(:password) { '0101010101' }

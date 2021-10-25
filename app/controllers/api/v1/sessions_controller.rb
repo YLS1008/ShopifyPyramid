@@ -18,6 +18,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
   end
 
   def destroy
+    @user = User.find_by(authentication_token: request.headers["X-Auth-Token"])
     sign_out(@user)
     reset_session
   end

@@ -7,7 +7,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def invite
-
+    user = User.find_by(authentication_token: request.headers["X-Auth-Token"])
+    Invitation.create(user_id: user.id, invited_email: user_params[:email])
+    InviteMailer.invite(params[:email])
+    render status: 200
   end
 
   def show
@@ -19,10 +22,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create
-    user = User.create user_params
+    inviting_user_id = Invitation.find_by(invited_email: user_params[:email])&.user_id
+    user = User.create(user_params.merge({ parent_id: inviting_user_id }))
 
     if user.valid?
-      user.create_auth_token
       sign_in(user)
       render json: { user: user, auth_token: user.current_auth.token }
     else

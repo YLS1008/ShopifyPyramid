@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       devise_scope :user do
         post "login" => "sessions#create", as: "login"
+        post "invite" => "users#invite", as: "invite"
         delete "logout" => "sessions#destroy", as: "logout"
         put "password/update", to: "registrations#update_password"
       end

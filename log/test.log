@@ -10215,3 +10215,859 @@ valid? is defined by Active Record. Check to make sure that you don't have an at
 /Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
 /Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
 Completed 500 Internal Server Error in 15ms (Views: 0.2ms | ActiveRecord: 2.4ms | Allocations: 5475)
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (214.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "pyramid_backend_test"[0m
+  [1m[35m (613.3ms)[0m  [1m[35mCREATE DATABASE "pyramid_backend_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (10.7ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "authentication_tokens" CASCADE[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE TABLE "authentication_tokens" ("id" bigserial primary key, "user_id" uuid NOT NULL, "token" character varying, "expires_at" timestamp, "valid" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_authentication_tokens_on_user_id" ON "authentication_tokens" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "invitations" CASCADE[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "invitations" ("id" bigserial primary key, "user_id" uuid NOT NULL, "invited_email" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_invitations_on_invited_email" ON "invitations" ("invited_email")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_invitations_on_user_id" ON "invitations" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "role" character varying DEFAULT 'standard', "authentication_token" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying NOT NULL, "parent_id" integer)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "authentication_tokens" ADD CONSTRAINT "fk_rails_ad331ebb27"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "invitations" ADD CONSTRAINT "fk_rails_7eae413fe6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211025205330)[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210420133027),
+(20210420133105),
+(20211025061405),
+(20211025203324);
+
+[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-10-25 21:30:11.790570"], ["updated_at", "2021-10-25 21:30:11.790570"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "761b02f80c682c67a7d0eb46ecd2eb2c8dd46db5"], ["created_at", "2021-10-25 21:30:11.793835"], ["updated_at", "2021-10-25 21:30:11.793835"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (208.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "pyramid_backend_test"[0m
+  [1m[35m (520.0ms)[0m  [1m[35mCREATE DATABASE "pyramid_backend_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (7.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "authentication_tokens" CASCADE[0m
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE "authentication_tokens" ("id" bigserial primary key, "user_id" uuid NOT NULL, "token" character varying, "expires_at" timestamp, "valid" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_authentication_tokens_on_user_id" ON "authentication_tokens" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "invitations" CASCADE[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "invitations" ("id" bigserial primary key, "user_id" uuid NOT NULL, "invited_email" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_invitations_on_invited_email" ON "invitations" ("invited_email")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_invitations_on_user_id" ON "invitations" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "role" character varying DEFAULT 'standard', "authentication_token" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying NOT NULL, "parent_id" integer, "invitation_token" character varying, "invitation_created_at" timestamp, "invitation_sent_at" timestamp, "invitation_accepted_at" timestamp, "invitation_limit" integer, "invited_by_type" character varying, "invited_by_id" bigint, "invitations_count" integer DEFAULT 0)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_invitation_token" ON "users" ("invitation_token")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_users_on_invited_by_id" ON "users" ("invited_by_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_users_on_invited_by" ON "users" ("invited_by_type", "invited_by_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (4.9ms)[0m  [1m[35mALTER TABLE "authentication_tokens" ADD CONSTRAINT "fk_rails_ad331ebb27"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "invitations" ADD CONSTRAINT "fk_rails_7eae413fe6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211025205922)[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210420133027),
+(20210420133105),
+(20211025061405),
+(20211025203324),
+(20211025205330);
+
+[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-10-25 21:30:33.196890"], ["updated_at", "2021-10-25 21:30:33.196890"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "2f4cc6454b1870c7d44d3f8c4d634fea6ca392d0"], ["created_at", "2021-10-25 21:30:33.199747"], ["updated_at", "2021-10-25 21:30:33.199747"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "JKVNonCP7YjSvgFyzv5x"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$7UExwwDzJc6zIAbm68/LaujjcFteQNaKesu0gePQ6N/FixceG4UAa"], ["authentication_token", "JKVNonCP7YjSvgFyzv5x"], ["created_at", "2021-10-25 21:30:33.308234"], ["updated_at", "2021-10-25 21:30:33.308234"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:30:33 +0300
+Error occurred while parsing request parameters.
+Contents:
+
+email=test%40test.com
+Processing by Api::V1::UsersController#invite as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "not_a_mail@mail.com"], ["LIMIT", 1]]
+Filter chain halted as :authenticate_user_using_x_auth_token rendered or redirected
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 481)
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "Xxsxe4t--C-zpzss378K"], ["LIMIT", 1]]
+  [1m[36mUser Create (2.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$Gei5Q3xtZ0/R.aodxtL8BOe2UNlk5RPc0xr37lfnRR0uRq.aNAppe"], ["authentication_token", "Xxsxe4t--C-zpzss378K"], ["created_at", "2021-10-25 21:31:55.331926"], ["updated_at", "2021-10-25 21:31:55.331926"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:31:55 +0300
+Error occurred while parsing request parameters.
+Contents:
+
+email=test%40test.com
+Processing by Api::V1::UsersController#invite as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:31:55.350526"], ["last_sign_in_at", "2021-10-25 21:31:55.350526"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:31:55.350760"], ["id", "4bcf9fd5-0ed4-45c9-b4aa-7779a932064f"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "Xxsxe4t--C-zpzss378K"], ["LIMIT", 1]]
+ActionDispatch::Http::Parameters::ParseError
+783: unexpected token at 'email=test%40test.com'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:96:in `rescue in parse_formatted_parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:92:in `parse_formatted_parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/request.rb:399:in `block in POST'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/request.rb:69:in `fetch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/request.rb:69:in `fetch_header'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/request.rb:398:in `POST'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:55:in `parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/strong_parameters.rb:1187:in `params'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:11:in `invite'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:49:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/mock_session.rb:29:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:266:in `process_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:119:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:279:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:22:in `post'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:372:in `post'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/spec/controllers/users_controller_spec.rb:60:in `block (3 levels) in <top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `block in with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `block in with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:626:in `block in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-rails-5.0.2/lib/rspec/rails/adapters.rb:75:in `block (2 levels) in <module:MinitestLifecycleAdapter>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:390:in `execute_with'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:628:in `block (2 levels) in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:629:in `run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:259:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:644:in `block in run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:606:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (3 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (2 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/configuration.rb:2067:in `with_suite_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:116:in `block in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/reporter.rb:74:in `report'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:115:in `run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:89:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:71:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:45:in `invoke'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/exe/rspec:4:in `<top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `load'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `<main>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+Completed 500 Internal Server Error in 21ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 5222)
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "RYcDc5ncDSnEHqExDkC9"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$UnrqfuIxcD6kqy0aLNHYy.VVY8ZoJnXmmRKo.GT/3L0Zr8ScrBlj6"], ["authentication_token", "RYcDc5ncDSnEHqExDkC9"], ["created_at", "2021-10-25 21:32:19.960292"], ["updated_at", "2021-10-25 21:32:19.960292"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:32:19 +0300
+Error occurred while parsing request parameters.
+Contents:
+
+email=test%40test.com
+Processing by Api::V1::UsersController#invite as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:32:19.978217"], ["last_sign_in_at", "2021-10-25 21:32:19.978217"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:32:19.978543"], ["id", "26836ee7-cb9d-46eb-a333-3abebcdb6f39"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "RYcDc5ncDSnEHqExDkC9"], ["LIMIT", 1]]
+ActionDispatch::Http::Parameters::ParseError
+783: unexpected token at 'email=test%40test.com'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:96:in `rescue in parse_formatted_parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:92:in `parse_formatted_parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/request.rb:399:in `block in POST'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/request.rb:69:in `fetch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/request.rb:69:in `fetch_header'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/request.rb:398:in `POST'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:55:in `parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/strong_parameters.rb:1187:in `params'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:12:in `invite'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:49:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/mock_session.rb:29:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:266:in `process_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:119:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:279:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:22:in `post'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:372:in `post'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/spec/controllers/users_controller_spec.rb:60:in `block (3 levels) in <top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `block in with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `block in with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:626:in `block in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-rails-5.0.2/lib/rspec/rails/adapters.rb:75:in `block (2 levels) in <module:MinitestLifecycleAdapter>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:390:in `execute_with'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:628:in `block (2 levels) in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:629:in `run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:259:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:644:in `block in run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:606:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (3 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (2 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/configuration.rb:2067:in `with_suite_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:116:in `block in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/reporter.rb:74:in `report'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:115:in `run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:89:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:71:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:45:in `invoke'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/exe/rspec:4:in `<top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `load'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `<main>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+Completed 500 Internal Server Error in 10518ms (Views: 0.3ms | ActiveRecord: 1.5ms | Allocations: 117184)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (6.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (24.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "416Z59GEksqh77whzVV9"], ["LIMIT", 1]]
+  [1m[36mUser Create (5.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$L0137ZzucOx/Pde41t5T0eAmsdk.q5CXpVGa4hyMRlLO5xc.hieMi"], ["authentication_token", "416Z59GEksqh77whzVV9"], ["created_at", "2021-10-25 21:32:37.260681"], ["updated_at", "2021-10-25 21:32:37.260681"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:32:37 +0300
+Error occurred while parsing request parameters.
+Contents:
+
+email=test%40test.com
+Processing by Api::V1::UsersController#invite as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (1.0ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:32:37.311472"], ["last_sign_in_at", "2021-10-25 21:32:37.311472"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:32:37.312328"], ["id", "3d240e90-4394-4003-8fd4-174e47896cc7"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "416Z59GEksqh77whzVV9"], ["LIMIT", 1]]
+ActionDispatch::Http::Parameters::ParseError
+783: unexpected token at 'email=test%40test.com'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:96:in `rescue in parse_formatted_parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:92:in `parse_formatted_parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/request.rb:399:in `block in POST'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/request.rb:69:in `fetch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/request.rb:69:in `fetch_header'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/request.rb:398:in `POST'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/http/parameters.rb:55:in `parameters'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/strong_parameters.rb:1187:in `params'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:12:in `invite'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:49:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/mock_session.rb:29:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:266:in `process_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:119:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:279:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:22:in `post'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:372:in `post'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/spec/controllers/users_controller_spec.rb:60:in `block (3 levels) in <top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `block in with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `block in with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:626:in `block in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-rails-5.0.2/lib/rspec/rails/adapters.rb:75:in `block (2 levels) in <module:MinitestLifecycleAdapter>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:390:in `execute_with'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:628:in `block (2 levels) in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:629:in `run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:259:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:644:in `block in run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:606:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (3 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (2 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/configuration.rb:2067:in `with_suite_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:116:in `block in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/reporter.rb:74:in `report'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:115:in `run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:89:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:71:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:45:in `invoke'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/exe/rspec:4:in `<top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `load'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `<main>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+Completed 500 Internal Server Error in 50991ms (Views: 0.3ms | ActiveRecord: 3.0ms | Allocations: 96835)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "JR_Hs6xtL9d-CE5gpp1X"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$GMB38EnjyVcigDfd3sRr1.MP/9d0ek.Y6UrdnyE5wKMbSyP7C9fDK"], ["authentication_token", "JR_Hs6xtL9d-CE5gpp1X"], ["created_at", "2021-10-25 21:33:33.288811"], ["updated_at", "2021-10-25 21:33:33.288811"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:33:33 +0300
+Error occurred while parsing request parameters.
+Contents:
+
+email=test%40test.com
+Processing by Api::V1::UsersController#invite as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:33:33.306915"], ["last_sign_in_at", "2021-10-25 21:33:33.306915"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:33:33.307141"], ["id", "1ef6e8f3-4068-4d89-a4b7-8bdc3fc8ae01"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "JR_Hs6xtL9d-CE5gpp1X"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "1FZz9RKLx-gUyAVtUu65"], ["LIMIT", 1]]
+  [1m[36mUser Create (2.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$eSZEbq3IXMhDbymVFHAZf.NxRRZ1itvCNxdctT.36ULaAzMeoHlGu"], ["authentication_token", "1FZz9RKLx-gUyAVtUu65"], ["created_at", "2021-10-25 21:34:41.936413"], ["updated_at", "2021-10-25 21:34:41.936413"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:34:41 +0300
+Processing by Api::V1::UsersController#invite as JSON
+  Parameters: {"email"=>"test@test.com", "user"=>{"email"=>"test@test.com"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:34:41.954667"], ["last_sign_in_at", "2021-10-25 21:34:41.954667"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:34:41.954928"], ["id", "e8846544-1c42-4fb8-83e6-243494d8ff31"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+NameError
+undefined local variable or method `byebugi' for #<Api::V1::UsersController:0x0000000000a190>
+Did you mean?  byebug
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:10:in `invite'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:49:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/mock_session.rb:29:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:266:in `process_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:119:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:279:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:22:in `post'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:372:in `post'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/spec/controllers/users_controller_spec.rb:59:in `block (3 levels) in <top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `block in with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `block in with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:626:in `block in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-rails-5.0.2/lib/rspec/rails/adapters.rb:75:in `block (2 levels) in <module:MinitestLifecycleAdapter>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:390:in `execute_with'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:628:in `block (2 levels) in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:629:in `run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:259:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:644:in `block in run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:606:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (3 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (2 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/configuration.rb:2067:in `with_suite_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:116:in `block in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/reporter.rb:74:in `report'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:115:in `run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:89:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:71:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:45:in `invoke'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/exe/rspec:4:in `<top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `load'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `<main>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+Completed 500 Internal Server Error in 15ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 6597)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "fosY2XveCrE_DSUeonrB"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$V1pzdOl6LdaoqFLW6GbW0uq1v7XnjnO8v9HigUz4nmn1tUKberTKm"], ["authentication_token", "fosY2XveCrE_DSUeonrB"], ["created_at", "2021-10-25 21:35:02.292081"], ["updated_at", "2021-10-25 21:35:02.292081"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:35:02 +0300
+Processing by Api::V1::UsersController#invite as JSON
+  Parameters: {"email"=>"test@test.com", "user"=>{"email"=>"test@test.com"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:35:02.312923"], ["last_sign_in_at", "2021-10-25 21:35:02.312923"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:35:02.313170"], ["id", "17ce468d-ac8a-4169-a985-cd64c74914d8"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "fosY2XveCrE_DSUeonrB"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "_WBskcX9ceZvfdX-1rGv"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$Mb0k0ZbK1KBXsJvAeQ3Gk.15Ucq7jxgJttbz2gJSkOgf4Vlac0eT2"], ["authentication_token", "_WBskcX9ceZvfdX-1rGv"], ["created_at", "2021-10-25 21:35:34.341270"], ["updated_at", "2021-10-25 21:35:34.341270"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:35:34 +0300
+Processing by Api::V1::UsersController#invite as JSON
+  Parameters: {"email"=>"test@test.com", "user"=>{"email"=>"test@test.com"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:35:34.359949"], ["last_sign_in_at", "2021-10-25 21:35:34.359949"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:35:34.360182"], ["id", "d60ab430-adba-4211-84d7-adcecc0ab610"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "_WBskcX9ceZvfdX-1rGv"], ["LIMIT", 1]]
+ActiveModel::UnknownAttributeError
+unknown attribute 'email' for Invitation.
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4.1/lib/active_model/attribute_assignment.rb:51:in `_assign_attribute'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/attribute_assignment.rb:21:in `block in _assign_attributes'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/attribute_assignment.rb:13:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/attribute_assignment.rb:13:in `_assign_attributes'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4.1/lib/active_model/attribute_assignment.rb:34:in `assign_attributes'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/core.rb:510:in `initialize'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/inheritance.rb:72:in `new'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/inheritance.rb:72:in `new'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/persistence.rb:37:in `create'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/app/controllers/api/v1/users_controller.rb:11:in `invite'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/basic_implicit_render.rb:6:in `send_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:228:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rendering.rb:30:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:42:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/callbacks.rb:41:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/rescue.rb:22:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/notifications.rb:203:in `instrument'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activerecord-6.1.4.1/lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/abstract_controller/base.rb:165:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:190:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_controller/metal.rb:254:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:33:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/mapper.rb:49:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:50:in `block in serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `each'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/journey/router.rb:32:in `serve'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/routing/route_set.rb:842:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:36:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `catch'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/warden-1.2.9/lib/warden/manager.rb:34:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/etag.rb:27:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/conditional_get.rb:40:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/head.rb:12:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/callbacks.rb:98:in `run_callbacks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:37:in `call_app'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `block in call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/rack/logger.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/request_id.rb:26:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/runtime.rb:22:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/activesupport-6.1.4.1/lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/executor.rb:14:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/static.rb:24:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-2.2.3/lib/rack/sendfile.rb:110:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/middleware/host_authorization.rb:92:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-cors-1.1.1/lib/rack/cors.rb:100:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/railties-6.1.4.1/lib/rails/engine.rb:539:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/mock_session.rb:29:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:266:in `process_request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rack-test-1.1.0/lib/rack/test.rb:119:in `request'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:279:in `process'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:22:in `post'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/actionpack-6.1.4.1/lib/action_dispatch/testing/integration.rb:372:in `post'
+/Users/yonatanhadas/RubymineProjects/pyramid_backend/spec/controllers/users_controller_spec.rb:59:in `block (3 levels) in <top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:262:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `block in with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `block in with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:626:in `block in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-rails-5.0.2/lib/rspec/rails/adapters.rb:75:in `block (2 levels) in <module:MinitestLifecycleAdapter>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:455:in `instance_exec'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:390:in `execute_with'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:628:in `block (2 levels) in run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:350:in `call'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:629:in `run_around_example_hooks_for'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/hooks.rb:486:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:465:in `with_around_example_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:508:in `with_around_and_singleton_context_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example.rb:259:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:644:in `block in run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:640:in `run_examples'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:606:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `block in run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/example_group.rb:607:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (3 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `map'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:121:in `block (2 levels) in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/configuration.rb:2067:in `with_suite_hooks'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:116:in `block in run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/reporter.rb:74:in `report'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:115:in `run_specs'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:89:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:71:in `run'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/lib/rspec/core/runner.rb:45:in `invoke'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/gems/rspec-core-3.10.1/exe/rspec:4:in `<top (required)>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `load'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/rspec:23:in `<main>'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/Users/yonatanhadas/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+Completed 500 Internal Server Error in 17ms (Views: 0.2ms | ActiveRecord: 3.0ms | Allocations: 7170)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "g2DFnT-WKMSqbGT-sHW-"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$M/Agcjn2DpGTBv0oQUXmduHjT0YhiGyiXHgftJtqy7o1pA4y0r9qW"], ["authentication_token", "g2DFnT-WKMSqbGT-sHW-"], ["created_at", "2021-10-25 21:35:47.775184"], ["updated_at", "2021-10-25 21:35:47.775184"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:35:47 +0300
+Processing by Api::V1::UsersController#invite as JSON
+  Parameters: {"email"=>"test@test.com", "user"=>{"email"=>"test@test.com"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:35:47.795433"], ["last_sign_in_at", "2021-10-25 21:35:47.795433"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:35:47.795675"], ["id", "cd612c5a-7761-4cee-a5d5-c342e0da635a"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "g2DFnT-WKMSqbGT-sHW-"], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (3.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "VxjJEjfTFYUUJibP5UrQ"], ["LIMIT", 1]]
+  [1m[36mUser Create (2.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "test1@example.com"], ["encrypted_password", "$2a$04$ZkLNllj1erWo79uKgqlny.Ovn.FAS1AkZho9k41hTvr4j2g2xbyCC"], ["authentication_token", "VxjJEjfTFYUUJibP5UrQ"], ["created_at", "2021-10-25 21:36:38.278172"], ["updated_at", "2021-10-25 21:36:38.278172"], ["name", "Test Name"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/invite" for 127.0.0.1 at 2021-10-26 00:36:38 +0300
+Processing by Api::V1::UsersController#invite as JSON
+  Parameters: {"email"=>"test@test.com", "user"=>{"email"=>"test@test.com"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test1@example.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-25 21:36:38.296972"], ["last_sign_in_at", "2021-10-25 21:36:38.296972"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2021-10-25 21:36:38.297182"], ["id", "3a6ca26f-c5b6-438c-99fe-49bfba3bdbb3"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 LIMIT $2[0m  [["authentication_token", "VxjJEjfTFYUUJibP5UrQ"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3a6ca26f-c5b6-438c-99fe-49bfba3bdbb3"], ["LIMIT", 1]]
+  [1m[36mInvitation Create (3.4ms)[0m  [1m[32mINSERT INTO "invitations" ("user_id", "invited_email", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", "3a6ca26f-c5b6-438c-99fe-49bfba3bdbb3"], ["invited_email", "test@test.com"], ["created_at", "2021-10-25 21:36:39.505116"], ["updated_at", "2021-10-25 21:36:39.505116"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 5001ms (Views: 0.3ms | ActiveRecord: 8.2ms | Allocations: 335265)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m

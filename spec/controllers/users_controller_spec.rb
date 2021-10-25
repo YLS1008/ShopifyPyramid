@@ -52,4 +52,16 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
   end
+
+  describe 'POST api/v1/users/invite' do
+    let!(:user) { create(:user) }
+    it 'invites new user to the pyramid' do
+      post('/api/v1/invite', params: { email: 'test@test.com' }.to_json, headers: { 'Accept': 'applicaion/json',  'Content-Type': 'application/json',
+                                        'X-Auth-Email': user.email, 'X-Auth-Token': user.authentication_token })
+
+      byebug
+
+    end
+  end
 end
+
