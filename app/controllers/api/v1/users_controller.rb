@@ -7,10 +7,18 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def invite
-    user = User.find_by(authentication_token: request.headers["X-Auth-Token"])
+    user = User.find_by(authentication_token: request.headers["X-Auth-Token"], email: request.headers["X-Auth-Email"] )
     Invitation.create(user_id: user.id, invited_email: user_params[:email])
     InviteMailer.invite(params[:email])
     render status: 200
+  end
+
+  def get_lucky
+    user = User.find_by(authentication_token: request.headers["X-Auth-Token"], email: request.headers["X-Auth-Email"] )
+    respond_with_error 'You have maxed out your luck', 401 unless user&.valid_for_get_lucky?
+
+    lucky_points = PointTransaction.get_lucky(user)
+    render json: { points_recieved: lucky_points }, status: 200
   end
 
   def show

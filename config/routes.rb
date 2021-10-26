@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       devise_scope :user do
         post "login" => "sessions#create", as: "login"
         post "invite" => "users#invite", as: "invite"
+        post "get_lucky" => "users#get_lucky", as: "get_lucky"
         delete "logout" => "sessions#destroy", as: "logout"
         put "password/update", to: "registrations#update_password"
       end
