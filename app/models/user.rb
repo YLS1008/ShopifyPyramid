@@ -22,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def as_json(options = {})
-    new_options = options.merge(only: [:email, :name, :current_sign_in_at])
+    new_options = options.merge(only: %i[email name current_sign_in_at total_points])
 
     super new_options
   end
@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def valid_for_get_lucky?
-    get_lucky_count < 10 || last_get_lucky_date != Date.current
+    get_lucky_count < GET_LUCKY_MAX_PER_DAY || last_get_lucky_date != Date.current
   end
 
   private
@@ -44,6 +44,10 @@ class User < ApplicationRecord
   def ensure_authentication_token_is_present
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
+    end
+
+    if invite_token.blank?
+      self.invite_token = generate_authentication_token
     end
   end
 

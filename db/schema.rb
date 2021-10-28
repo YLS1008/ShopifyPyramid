@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_162259) do
+ActiveRecord::Schema.define(version: 2021_10_28_120031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 2021_10_26_162259) do
     t.index ["user_id"], name: "index_point_transactions_on_user_id"
   end
 
+  create_table "scrape_attempts", force: :cascade do |t|
+    t.bigint "last_transaction_id"
+    t.boolean "success"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -69,6 +76,9 @@ ActiveRecord::Schema.define(version: 2021_10_26_162259) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.integer "get_lucky_count", default: 0
+    t.date "last_get_lucky_date", default: "2020-10-26"
+    t.string "invite_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"

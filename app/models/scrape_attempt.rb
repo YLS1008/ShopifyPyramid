@@ -1,0 +1,2 @@
+class ScrapeAttempt < ApplicationRecord
+end

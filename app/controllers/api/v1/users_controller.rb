@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
+  SIGNUP_URL = 'https://not-a-pyramid.herok'
+
   skip_before_action :authenticate_user!, only: [:create]
-  skip_before_action :authenticate_user_using_x_auth_token, only: [:create]
+  skip_before_action :authenticaate_user_using_x_auth_token, only: [:create]
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def standings
+    users = User.all
+    standings = users.map { |user| [user.email, [user.name, user.total_points]] }.sort { |a| a[1][1] }.to_h
+    render json: { points_standings: standings }, status: 200
+  end
+
   def invite
     user = User.find_by(authentication_token: request.headers["X-Auth-Token"], email: request.headers["X-Auth-Email"] )
-    Invitation.create(user_id: user.id, invited_email: user_params[:email])
-    InviteMailer.invite(params[:email])
-    render status: 200
+    render json: { invite_link: "#{SIGNUP_URL}" }, status: 200
   end
 
   def get_lucky
