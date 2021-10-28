@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
-  SIGNUP_URL = 'https://not-a-pyramid.herok'
+  SIGNUP_URL = 'https://pyramid-front.herokuapp.com'
 
   skip_before_action :authenticate_user!, only: [:create]
   skip_before_action :authenticaate_user_using_x_auth_token, only: [:create]
@@ -16,7 +16,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def invite
     user = User.find_by(authentication_token: request.headers["X-Auth-Token"], email: request.headers["X-Auth-Email"] )
-    render json: { invite_link: "#{SIGNUP_URL}" }, status: 200
+    render json: { invite_link: "#{SIGNUP_URL}?invite_token=#{user.invite_token}" }, status: 200
   end
 
   def get_lucky
