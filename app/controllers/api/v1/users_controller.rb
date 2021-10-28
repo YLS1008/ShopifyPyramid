@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   SIGNUP_URL = 'https://pyramid-front.herokuapp.com'
 
   skip_before_action :authenticate_user!, only: [:create]
-  skip_before_action :authenticaate_user_using_x_auth_token, only: [:create]
+  skip_before_action :authenticate_user_using_x_auth_token, only: [:create]
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
