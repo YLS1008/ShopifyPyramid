@@ -594,3 +594,94 @@ Migrating to AddInviteTokenToUsers (20211028120031)
   [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
   [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3937923572522455425)[0m
   [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/v1/users" for ::1 at 2021-10-28 16:15:07 +0300
+  [1m[35m (6.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ArgumentError (Before process_action callback :authenticaate_user_using_x_auth_token has not been defined):
+  
+app/controllers/api/v1/users_controller.rb:7:in `<class:UsersController>'
+app/controllers/api/v1/users_controller.rb:3:in `<main>'
+Started POST "/api/v1/invite" for ::1 at 2021-10-28 21:04:29 +0300
+  [1m[35m (3.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::UsersController#invite as JSON
+  [1m[36mUser Load (23.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/base_controller.rb:33:in `authenticate_user_using_x_auth_token'
+Filter chain halted as :authenticate_user_using_x_auth_token rendered or redirected
+Completed 401 Unauthorized in 89766ms (Views: 0.3ms | ActiveRecord: 34.8ms | Allocations: 71883)
+
+
+Started POST "/api/v1/invite" for ::1 at 2021-10-28 21:06:55 +0300
+Processing by Api::V1::UsersController#invite as JSON
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/base_controller.rb:33:in `authenticate_user_using_x_auth_token'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:57:in `block in generate_authentication_token'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "GAyhdzub9X6sYkwAtWsK"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57:in `block in generate_authentication_token'
+  [1m[36mUser Update (3.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "updated_at" = $3, "invite_token" = $4 WHERE "users"."id" = $5[0m  [["sign_in_count", 2], ["current_sign_in_at", "2021-10-28 18:07:16.488396"], ["updated_at", "2021-10-28 18:07:16.493317"], ["invite_token", "GAyhdzub9X6sYkwAtWsK"], ["id", "7da57a3b-a229-4f17-a979-a571b2f6009e"]]
+  ↳ app/controllers/api/v1/base_controller.rb:36:in `authenticate_user_using_x_auth_token'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/base_controller.rb:36:in `authenticate_user_using_x_auth_token'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 AND "users"."email" = $2 LIMIT $3[0m  [["authentication_token", "iZoz6PX1rdLYFNznxkYx"], ["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:18:in `invite'
+Completed 200 OK in 21218ms (Views: 0.1ms | ActiveRecord: 7.8ms | Allocations: 53269)
+
+
+Started POST "/api/v1/users" for ::1 at 2021-10-28 21:13:44 +0300
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"email"=>"yonatnh@gmail.com", "password"=>"[FILTERED]", "name"=>"Yonatan Hadas"}}
+  [1m[36mInvitation Load (7.3ms)[0m  [1m[34mSELECT "invitations".* FROM "invitations" WHERE "invitations"."invited_email" = $1 LIMIT $2[0m  [["invited_email", "yonatnh@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:39:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:40:in `create'
+  [1m[36mUser Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "yonatnh@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:40:in `create'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "yonatnh@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:40:in `create'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "i1SE7E4ZVpkJcmceVXi_"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57:in `block in generate_authentication_token'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."authentication_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["authentication_token", "yZ3skSzcAD9dFsj3TsfW"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:57:in `block in generate_authentication_token'
+  [1m[36mUser Create (13.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "authentication_token", "created_at", "updated_at", "name", "invite_token") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "yonatnh@gmail.com"], ["encrypted_password", "$2a$12$fndpMzjGPdg6oyqDEhXkbOUJnYZ77Lv5YyT4FB9MQyDznlTysMLvC"], ["authentication_token", "i1SE7E4ZVpkJcmceVXi_"], ["created_at", "2021-10-28 18:13:44.992876"], ["updated_at", "2021-10-28 18:13:44.992876"], ["name", "Yonatan Hadas"], ["invite_token", "yZ3skSzcAD9dFsj3TsfW"]]
+  ↳ app/controllers/api/v1/users_controller.rb:40:in `create'
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:40:in `create'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "yonatnh@gmail.com"], ["id", "349075c5-9123-47e1-81c4-e28dc277cf9d"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:42:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/users_controller.rb:43:in `create'
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "current_sign_in_ip" = $4, "last_sign_in_ip" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["sign_in_count", 1], ["current_sign_in_at", "2021-10-28 18:13:45.015078"], ["last_sign_in_at", "2021-10-28 18:13:45.015078"], ["current_sign_in_ip", "::1"], ["last_sign_in_ip", "::1"], ["updated_at", "2021-10-28 18:13:45.015343"], ["id", "349075c5-9123-47e1-81c4-e28dc277cf9d"]]
+  ↳ app/controllers/api/v1/users_controller.rb:43:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/users_controller.rb:43:in `create'
+Completed 200 OK in 392ms (Views: 0.4ms | ActiveRecord: 41.5ms | Allocations: 22615)
+
+
+Started POST "/api/v1/login" for ::1 at 2021-10-28 21:14:02 +0300
+Processing by Api::V1::SessionsController#create as JSON
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "updated_at" = $4 WHERE "users"."id" = $5[0m  [["sign_in_count", 3], ["current_sign_in_at", "2021-10-28 18:14:02.733291"], ["last_sign_in_at", "2021-10-28 18:07:16.488396"], ["updated_at", "2021-10-28 18:14:02.733603"], ["id", "7da57a3b-a229-4f17-a979-a571b2f6009e"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+Completed 201 Created in 48423ms (Views: 0.4ms | ActiveRecord: 2.0ms | Allocations: 24620)
+
+
+Started POST "/api/v1/login" for ::1 at 2021-10-28 21:15:08 +0300
+Processing by Api::V1::SessionsController#create as JSON
+  Parameters: {"user"=>{"email"=>"yonatnh@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"yonatnh@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "yonatnh@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+  [1m[36mUser Update (0.7ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["sign_in_count", 2], ["current_sign_in_at", "2021-10-28 18:15:08.494243"], ["updated_at", "2021-10-28 18:15:08.494536"], ["id", "349075c5-9123-47e1-81c4-e28dc277cf9d"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+Completed 201 Created in 15527ms (Views: 0.3ms | ActiveRecord: 1.8ms | Allocations: 24510)
+
+

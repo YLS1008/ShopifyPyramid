@@ -24,6 +24,12 @@ class PointTransaction < ApplicationRecord
     value if points
   end
 
+  def self.new_order_paid(order)
+    user = User.find_by(email: order['email'])
+    value = order['total_price'] * PER_DOLAR_POINTS
+    points = PointTransaction.create(user_id: user.id, value: value, source: :purchase)
+  end
+
   private
 
   def user_is_orphan?
