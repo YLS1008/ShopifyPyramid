@@ -31,7 +31,6 @@ class Api::V1::BaseController < ApplicationController
       user_email = request.headers["X-Auth-Email"]
       auth_token = request.headers["X-Auth-Token"].presence
       user = user_email && User.find_by_email(user_email)
-
       if user && Devise.secure_compare(user.authentication_token, auth_token)
         sign_in user, store: false
       else

@@ -16,6 +16,8 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def invite
     user = User.find_by(authentication_token: request.headers["X-Auth-Token"], email: request.headers["X-Auth-Email"] )
+    respond_with_error 'Bad Auth Params', 400 unless user
+
     render json: { invite_link: "#{SIGNUP_URL}?invite_token=#{user.invite_token}" }, status: 200
   end
 
@@ -36,7 +38,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create
-    inviting_user_id = Invitation.find_by(invited_email: user_params[:email])&.user_id
+    inviting_user_id = User.find_by(invite_token: user_params[:invite_token])&.pluck(:id)
     user = User.create(user_params.merge({ parent_id: inviting_user_id }))
 
     if user.valid?
