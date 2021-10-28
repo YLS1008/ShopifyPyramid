@@ -8,7 +8,6 @@ end
 RSpec.shared_examples 'json result with auth' do
   specify 'returns JSON' do
     api_call params
-    byebug
     expect { JSON.parse(response.body) }.not_to raise_error
     expect(JSON.parse(response.body)['auth_token']).not_to be nil
   end
