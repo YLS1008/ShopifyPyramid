@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       devise_scope :user do
-        get "standins" => "users#standings", as: "standings"
+        get "standings" => "users#standings", as: "standings"
         post "login" => "sessions#create", as: "login"
         post "invite" => "users#invite", as: "invite"
         post "get_lucky" => "users#get_lucky", as: "get_lucky"

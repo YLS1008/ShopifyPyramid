@@ -10,7 +10,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def standings
     users = User.all
-    standings = users.map { |user| [user.email, [user.name, user.total_points]] }.sort { |a| a[1][1] }.to_h
+    standings = users.map { |user| [user.email, [user.name, user.total_points.to_f]] }.sort { |a| a[1][1] }.to_h
     render json: { points_standings: standings }, status: 200
   end
 
@@ -38,7 +38,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create
-    inviting_user_id = User.find_by(invite_token: user_params[:invite_token])&.pluck(:id)
+    inviting_user_id = User.find_by(invite_token: user_params[:invite_token])&.id
     user = User.create(user_params.merge({ parent_id: inviting_user_id }))
 
     if user.valid?

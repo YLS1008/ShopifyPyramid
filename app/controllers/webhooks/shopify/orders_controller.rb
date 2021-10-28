@@ -9,7 +9,7 @@ module Webhooks
 
         payload = JSON.parse data
         begin
-         PointTransaction.new_order_paid(payload)
+          PointTransaction.new_order_paid(payload)
         rescue => e
           respond_with_error '',400
         end
