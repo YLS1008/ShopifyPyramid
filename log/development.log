@@ -685,3 +685,53 @@ Processing by Api::V1::SessionsController#create as JSON
 Completed 201 Created in 15527ms (Views: 0.3ms | ActiveRecord: 1.8ms | Allocations: 24510)
 
 
+Started GET "/" for 127.0.0.1 at 2021-10-29 00:04:58 +0300
+  [1m[35m (4.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+Completed 200 OK in 28ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 1947)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2021-10-29 00:04:58 +0300
+Processing by HomeController#index as */*
+  Parameters: {"path"=>"favicon"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 58)
+
+
+Started GET "/hp,e" for 127.0.0.1 at 2021-10-29 00:05:04 +0300
+Processing by HomeController#index as HTML
+  Parameters: {"path"=>"hp,e"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 59)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2021-10-29 00:05:04 +0300
+Processing by HomeController#index as */*
+  Parameters: {"path"=>"favicon"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 53)
+
+
+Started GET "/os" for 127.0.0.1 at 2021-10-29 00:05:09 +0300
+Processing by HomeController#index as HTML
+  Parameters: {"path"=>"os"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 59)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2021-10-29 00:05:09 +0300
+Processing by HomeController#index as */*
+  Parameters: {"path"=>"favicon"}
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 53)
+
+
+Started POST "/api/v1/login" for ::1 at 2021-10-29 00:09:24 +0300
+Processing by Api::V1::SessionsController#create as JSON
+  Parameters: {"user"=>{"email"=>"yonatnh@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"yonatnh@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (6.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "yonatnh@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = $1, "current_sign_in_at" = $2, "last_sign_in_at" = $3, "updated_at" = $4 WHERE "users"."id" = $5[0m  [["sign_in_count", 3], ["current_sign_in_at", "2021-10-28 21:09:24.860399"], ["last_sign_in_at", "2021-10-28 18:15:08.494243"], ["updated_at", "2021-10-28 21:09:24.860897"], ["id", "349075c5-9123-47e1-81c4-e28dc277cf9d"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:12:in `create'
+Completed 201 Created in 332ms (Views: 0.4ms | ActiveRecord: 19.0ms | Allocations: 17345)
+
+

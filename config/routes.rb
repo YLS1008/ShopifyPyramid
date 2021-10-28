@@ -10,15 +10,10 @@ Rails.application.routes.draw do
         post "get_lucky" => "users#get_lucky", as: "get_lucky"
         delete "logout" => "sessions#destroy", as: "logout"
         put "password/update", to: "registrations#update_password"
-        post 'orders_webhook', to: "orders#create"
+        #post 'orders_webhook', to: 'orders#create'
       end
 
       resources :users, only: [:show, :create, :update, :destroy], constraints: { id: /.*/ }
-      resources :notes, only: [:index, :create] do
-        collection do
-          post 'bulk_delete'
-        end
-      end
     end
   end
 
