@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         post "get_lucky" => "users#get_lucky", as: "get_lucky"
         delete "logout" => "sessions#destroy", as: "logout"
         put "password/update", to: "registrations#update_password"
+        post 'orders_webhook', to: "orders#create"
       end
 
       resources :users, only: [:show, :create, :update, :destroy], constraints: { id: /.*/ }
